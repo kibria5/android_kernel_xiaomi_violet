@@ -338,7 +338,7 @@ static int tmc_set_etf_buffer(struct coresight_device *csdev,
 	struct cs_buffers *buf = sink_config;
 
 	/* wrap head around to the amount of space we have */
-	head = handle->head & ((buf->nr_pages << PAGE_SHIFT) - 1);
+	head = handle->head & (((unsigned long)buf->nr_pages << PAGE_SHIFT) - 1);
 
 	/* find the page to write to */
 	buf->cur = head / PAGE_SIZE;
