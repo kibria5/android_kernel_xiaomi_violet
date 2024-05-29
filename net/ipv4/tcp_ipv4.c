@@ -2559,6 +2559,7 @@ static int __net_init tcp_sk_init(struct net *net)
 		net->ipv4.tcp_congestion_control = init_net.ipv4.tcp_congestion_control;
 	else
 		net->ipv4.tcp_congestion_control = &tcp_reno;
+	net->ipv4.sysctl_tcp_early_retrans = 3;
 
 	return 0;
 fail:
