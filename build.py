@@ -116,7 +116,7 @@ completion() {
     DIFF=$(($END - $START))
     BUILDTIME=$(echo $((${END} - ${START})) | awk '{print int ($1/3600)" Hours:"int(($1/60)%60)"Minutes:"int($1%60)" Seconds"}')
     file_path="$HOME/$zip_name"
-    url="https://pixeldrain.com/u/$(curl -s -T "$file_path" -u :"$API_KEY" "https://pixeldrain.com/api/file/" | jq -r '.id')"
+    url="https://gofile.io/d/$(curl -s -F \"file=@${file_path}\" https://$(curl -s https://api.gofile.io/getServer | jq -r '.data.server').gofile.io/uploadFile | jq -r '.data.code')"
     zip_size=$(du -h $HOME/$zip_name | awk '{print $1}')
     tg_post_msg "<b>File Name:</b> <code>$zip_name</code>%0A<b>File Size:</b> <code>$zip_size</code>%0A<b>Download Link:</b> <a href='${url}'>Click Here</a>%0A<b>Build Time: $((DIFF / 60)) minute(s) and $((DIFF % 60)) second(s)</b>"
     echo
